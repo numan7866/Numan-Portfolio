@@ -1,459 +1,451 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ノマン ムハンマド | 履歴書ポートフォリオ</title>
+    <title>ノマン ムハンマド</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <link href="img/favicon.ico" rel="icon">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #0b1020;
-            --bg-soft: #121b33;
-            --paper: rgba(255, 255, 255, 0.96);
-            --ink: #1a2333;
-            --muted: #526078;
-            --line: #dce3ef;
-            --accent: #2b6ef3;
-            --accent-2: #17b8b0;
-            --glow: rgba(43, 110, 243, 0.35);
-        }
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-        * { box-sizing: border-box; }
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-        html { scroll-behavior: smooth; }
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-        body {
-            margin: 0;
-            font-family: "Noto Sans JP", sans-serif;
-            color: var(--ink);
-            background:
-                radial-gradient(circle at 10% 15%, rgba(23, 184, 176, 0.22), transparent 25%),
-                radial-gradient(circle at 88% 12%, rgba(43, 110, 243, 0.3), transparent 28%),
-                linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
-            line-height: 1.75;
-            letter-spacing: 0.01em;
-        }
-
-        .bg-orb {
-            position: fixed;
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            filter: blur(32px);
-            opacity: 0.3;
-            pointer-events: none;
-            z-index: 0;
-            animation: float 10s ease-in-out infinite;
-        }
-        .orb-a { background: #2b6ef3; top: 12%; right: 6%; }
-        .orb-b { background: #17b8b0; bottom: 8%; left: 4%; animation-delay: -3s; }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-18px); }
-        }
-
-        .topbar {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            background: rgba(8, 14, 30, 0.75);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-            backdrop-filter: blur(10px);
-        }
-
-        .nav-wrap {
-            max-width: 1180px;
-            margin: 0 auto;
-            padding: 14px 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .brand {
-            text-decoration: none;
-            font-weight: 800;
-            color: #f2f6ff;
-            letter-spacing: 0.05em;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #d8e2f7;
-            font-size: 0.9rem;
-            padding: 7px 11px;
-            border-radius: 999px;
-            transition: all 0.25s ease;
-        }
-
-        .nav-links a:hover {
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.14);
-            transform: translateY(-2px);
-        }
-
-        .section {
-            position: relative;
-            z-index: 1;
-            max-width: 1180px;
-            margin: 0 auto;
-            padding: 56px 18px;
-        }
-
-        .hero {
-            padding-top: 78px;
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 24px;
-        }
-
-        .card {
-            background: var(--paper);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 20px;
-            padding: 28px;
-            box-shadow: 0 18px 45px rgba(11, 20, 40, 0.22);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 24px 50px rgba(11, 20, 40, 0.28);
-        }
-
-        h1, h2, h3 { margin-top: 0; line-height: 1.35; }
-        h1 { font-size: 2.05rem; margin-bottom: 8px; }
-        h2 { font-size: 1.38rem; margin-bottom: 16px; }
-        h3 { font-size: 1.03rem; margin-bottom: 8px; color: var(--muted); }
-
-        .lead { color: var(--muted); margin: 0; }
-
-        .meta {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 10px 14px;
-            margin-top: 18px;
-        }
-
-        .meta div {
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            background: #fbfcff;
-            padding: 10px 12px;
-            font-size: 0.94rem;
-        }
-
-        .hero-photo {
-            width: 100%;
-            border-radius: 16px;
-            margin-bottom: 16px;
-            height: 220px;
-            object-fit: cover;
-            border: 1px solid var(--line);
-        }
-
-        .btn-soft {
-            display: inline-block;
-            text-decoration: none;
-            color: #ffffff;
-            background: linear-gradient(135deg, var(--accent), var(--accent-2));
-            padding: 10px 14px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            box-shadow: 0 8px 18px var(--glow);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-        .btn-soft:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 14px 24px var(--glow);
-        }
-
-        .sec-title {
-            color: #f4f8ff;
-            margin-bottom: 16px;
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: 0.03em;
-        }
-
-        .timeline { display: grid; gap: 10px; }
-
-        .item {
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            background: #fcfdff;
-            padding: 14px 15px;
-            transition: transform 0.25s ease, border-color 0.25s ease;
-        }
-        .item:hover {
-            transform: translateX(3px);
-            border-color: #b4c8f4;
-        }
-        .date {
-            color: var(--accent);
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
-
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 16px;
-        }
-
-        .project {
-            background: var(--paper);
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 16px 30px rgba(10, 18, 34, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .project:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 22px 38px rgba(10, 18, 34, 0.26);
-        }
-
-        .project img {
-            width: 100%;
-            height: 196px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .project:hover img { transform: scale(1.06); }
-
-        .project-actions {
-            display: flex;
-            justify-content: space-between;
-            gap: 8px;
-            padding: 12px;
-        }
-
-        .project-actions a {
-            flex: 1;
-            text-align: center;
-            text-decoration: none;
-            border: 1px solid var(--line);
-            border-radius: 10px;
-            padding: 8px 10px;
-            color: var(--ink);
-            font-size: 0.89rem;
-            transition: all 0.25s ease;
-        }
-
-        .project-actions a:hover {
-            color: var(--accent);
-            border-color: var(--accent);
-            background: #f4f8ff;
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(28px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .reveal.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .footer {
-            position: relative;
-            z-index: 1;
-            color: #d6e1f8;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            text-align: center;
-            padding: 28px 18px 40px;
-        }
-
-        @media (max-width: 920px) {
-            .hero { grid-template-columns: 1fr; }
-            .project-grid { grid-template-columns: 1fr 1fr; }
-            .meta { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 640px) {
-            .project-grid { grid-template-columns: 1fr; }
-            .nav-wrap { align-items: flex-start; flex-direction: column; }
-        }
-    </style>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
-<body>
-    <div class="bg-orb orb-a"></div>
-    <div class="bg-orb orb-b"></div>
 
-    <header class="topbar">
-        <div class="nav-wrap">
-            <a class="brand" href="#top">ノマン ムハンマド</a>
-            <nav class="nav-links">
-                <a href="#profile">基本情報</a>
-                <a href="#history">学歴・職歴</a>
-                <a href="#appeal">自己PR・志望動機</a>
-                <a href="#license">免許・資格</a>
-                <a href="#project">プロジェクト</a>
-                <a href="#contact">連絡先</a>
-            </nav>
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="51">
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">読み込み中...</span>
         </div>
-    </header>
+    </div>
 
-    <main id="top">
-        <section class="section hero reveal" id="profile">
-            <div class="card">
-                <h1>ノマン ムハンマド</h1>
-                <p class="lead">履歴書記載情報に基づくポートフォリオ</p>
-                <div class="meta">
-                    <div><strong>国籍:</strong> パキスタン</div>
-                    <div><strong>性別:</strong> 男</div>
-                    <div><strong>生年月日:</strong> 1998年07月01日（満27歳）</div>
-                    <div><strong>扶養家族数:</strong> 0人</div>
-                    <div><strong>身長:</strong> 176.8cm</div>
-                    <div><strong>体重:</strong> 82kg</div>
-                    <div><strong>視力:</strong> 良い</div>
-                    <div><strong>配偶者:</strong> 無</div>
+    <nav class="navbar navbar-expand-lg bg-white navbar-light fixed-top shadow py-lg-0 px-4 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
+        <a href="index.html" class="navbar-brand d-block d-lg-none">
+            <h1 class="text-primary fw-bold m-0">ポートフォリオ</h1>
+        </a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between py-4 py-lg-0" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+                <a href="#home" class="nav-item nav-link active">ホーム</a>
+                <a href="#about" class="nav-item nav-link">自己紹介</a>
+                <a href="#skill" class="nav-item nav-link">スキル</a>
+            </div>
+            <div class="navbar-nav me-auto py-0">
+                <a href="#service" class="nav-item nav-link">サービス</a>
+                <a href="#project" class="nav-item nav-link">プロジェクト</a>
+                <a href="#contact" class="nav-item nav-link">連絡先</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid bg-light my-6 mt-0" id="home">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6 py-6 pb-0 pt-lg-0">
+                    <h3 class="text-primary mb-3">私は</h3>
+                    <h1>ノマン ムハンマド</h1>
+                    <h2 class="typed-text-output d-inline"></h2>
+                    <div class="typed-text d-none">ゲームプログラマー, 品出しスタッフ, 日本語学習者, 多言語コミュニケーター</div>
+                    <div class="d-flex align-items-center pt-5">
+                        <a href="CV/ノマン履歴書.pdf" class="btn btn-primary py-3 px-4 me-5">履歴書をダウンロード</a>
+                        <button type="button" class="btn-play" data-bs-toggle="modal"
+                            data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
+                            <span></span>
+                        </button>
+                        <h5 class="ms-4 mb-0 d-none d-sm-block">動画を見る</h5>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img class="img-fluid" src="img/profile1.jpg" alt="プロフィール">
                 </div>
             </div>
-            <div class="card">
-                <img class="hero-photo" src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=80" alt="プロフィールイメージ">
-                <h2>住所・連絡先</h2>
-                <p>〒533-0007<br>大阪市東淀川区相川3丁目1番18号ベストレジデンス相川田302号</p>
-                <p><strong>電話:</strong> 7047222912</p>
-                <p><strong>メール:</strong> numanmushtaq11@gmail.com</p>
-                <p><a class="btn-soft" href="CV/ノマン履歴書.pdf">履歴書（PDF）を開く</a></p>
-            </div>
-        </section>
+        </div>
+    </div>
 
-        <section class="section reveal" id="history">
-            <h2 class="sec-title">学歴・職歴</h2>
-            <div class="card">
-                <h3>学歴</h3>
-                <div class="timeline">
-                    <div class="item"><div class="date">2015年2月 - 2017年7月</div>PUNJAP GROUP OF COLLEGE（高校）</div>
-                    <div class="item"><div class="date">2017年10月 - 2021年10月</div>UNIVERSITY OF SOUTH ASIA（コンピュータ科学大学）</div>
-                    <div class="item"><div class="date">2024年4月 - 2026年3月</div>NEST21日本語学院</div>
+    <div class="modal modal-video fade" id="videoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-0">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">YouTube動画</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
                 </div>
-                <h3 style="margin-top:22px;">職歴</h3>
-                <div class="timeline">
-                    <div class="item"><div class="date">2021年11月 - 2024年1月</div>ABSTRON PVT LIMITED（ゲームプログラマー）</div>
-                    <div class="item"><div class="date">2024年5月 - 2026年3月</div>マルアイ ロジスティクスセンター（品出し）</div>
+                <div class="modal-body">
+                    <div class="ratio ratio-16x9">
+                        <iframe class="embed-responsive-item" src="" id="video" allowfullscreen allowscriptaccess="always" allow="autoplay"></iframe>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
 
-        <section class="section reveal" id="appeal">
-            <h2 class="sec-title">自己PR・志望動機</h2>
-            <div class="card">
-                <h3>自己PR</h3>
-                <p>私の強みはコミュニケーション能力が高いことです。母国語であるウルドゥー語はもちろんのこと、日本語・英語でいろいろな国の方々と出会える機会を見つけ、積極的に交流します。どんな仕事でも積極的にやると申し出て、挑戦したいと思います。失敗する事もありますが、失敗しないと成功しないと思い、頑張ってきました。今後も何事にもコミュニケーション能力、成功体験を増やしていきたいと思います。貴社に貢献する人材になり得ると確信しています。</p>
-                <h3 style="margin-top:22px;">志望動機</h3>
-                <p>私いつも時間とルールを守ることが大事にしています。前でもホテルでおもてなしの心でサービスを提供することができました。これからも同じサービス業界の飲食店で挑戦していきたいと思っており、貴社を志望しました。笑顔で明るく元気で働きます。日本で自分の成長と可能性を広げたいと思っています。日本でたくさんのことを経験し、できれば将来パキスタンで和食店を開きたいと考えております。</p>
-            </div>
-        </section>
-
-        <section class="section reveal" id="license">
-            <h2 class="sec-title">免許・資格</h2>
-            <div class="card">
-                <div class="timeline">
-                    <div class="item">韓国語能力試験（TOPIK）4級 合格</div>
-                    <div class="item">2023年10月 パキスタン普通自動車運転免許 取得</div>
-                    <div class="item">2026年04月20日現在</div>
+    <div class="container-xxl py-6" id="about">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="d-flex align-items-center mb-5">
+                        <div class="years flex-shrink-0 text-center me-4">
+                            <h1 class="display-1 mb-0">03</h1>
+                            <h5 class="mb-0">年以上</h5>
+                        </div>
+                        <h3 class="lh-base mb-0">実務経験（ゲーム開発・物流業務）</h3>
+                    </div>
+                    <p class="mb-4">私の強みはコミュニケーション能力が高いことです。母国語であるウルドゥー語はもちろん、日本語・英語でさまざまな国の方と積極的に交流できます。時間とルールを守る姿勢を大切にし、どんな仕事にも挑戦する姿勢で取り組んでいます。</p>
+                    <p class="mb-3"><i class="far fa-check-circle text-primary me-3"></i>日本語・英語・ウルドゥー語での対応</p>
+                    <p class="mb-3"><i class="far fa-check-circle text-primary me-3"></i>時間厳守とルール順守</p>
+                    <p class="mb-3"><i class="far fa-check-circle text-primary me-3"></i>挑戦と継続的な成長意識</p>
+                    <a class="btn btn-primary py-3 px-5 mt-3" href="#contact">連絡する</a>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="row g-3 mb-4">
+                        <div class="col-sm-6">
+                            <img class="img-fluid rounded" src="img/about-1.jpg" alt="">
+                        </div>
+                        <div class="col-sm-6">
+                            <img class="img-fluid rounded" src="img/about-2.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center mb-3">
+                        <h5 class="border-end pe-3 me-3 mb-0">ゲームプログラマー経験</h5>
+                        <h2 class="text-primary fw-bold mb-0" data-toggle="counter-up">26</h2><p class="mb-0 ms-1">ヶ月</p>
+                    </div>
+                    <p class="mb-4">ABSTRON PVT LIMITED にてゲームプログラマーとして勤務しました。</p>
+                    <div class="d-flex align-items-center mb-3">
+                        <h5 class="border-end pe-3 me-3 mb-0">物流センター経験</h5>
+                        <h2 class="text-primary fw-bold mb-0" data-toggle="counter-up">22</h2><p class="mb-0 ms-1">ヶ月</p>
+                    </div>
+                    <p class="mb-0">マルアイ ロジスティクスセンターにて品出し業務を担当しました。</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
 
-        <section class="section reveal" id="project">
-            <h2 class="sec-title">プロジェクト</h2>
-            <div class="project-grid">
-                <article class="project">
-                    <img src="img/project-1.jpg" alt="プロジェクト1">
-                    <div class="project-actions">
-                        <a href="img/project-1.jpg" target="_blank" rel="noopener noreferrer">画像</a>
-                        <a href="https://www.meta.com/experiences/6015235845168476/?utm_source=altlabvr.com" target="_blank" rel="noopener noreferrer">リンク</a>
+    <div class="container-xxl py-6 pb-5" id="skill">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <h1 class="display-5 mb-5">スキルと経歴</h1>
+                    <p class="mb-4">履歴書の内容をもとに、ゲーム開発経験と現場業務経験を整理しています。</p>
+                    <h3 class="mb-4">スキル</h3>
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="skill mb-4">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="font-weight-bold">ゲームプログラミング</h6>
+                                    <h6 class="font-weight-bold">90%</h6>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="skill mb-4">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="font-weight-bold">日本語コミュニケーション</h6>
+                                    <h6 class="font-weight-bold">80%</h6>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="skill mb-4">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="font-weight-bold">英語コミュニケーション</h6>
+                                    <h6 class="font-weight-bold">85%</h6>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="skill mb-4">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="font-weight-bold">ウルドゥー語</h6>
+                                    <h6 class="font-weight-bold">100%</h6>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="skill mb-4">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="font-weight-bold">時間管理</h6>
+                                    <h6 class="font-weight-bold">95%</h6>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-dark" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="skill mb-4">
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="font-weight-bold">チーム対応</h6>
+                                    <h6 class="font-weight-bold">90%</h6>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </article>
-                <article class="project">
-                    <img src="img/project-2.jpg" alt="プロジェクト2">
-                    <div class="project-actions">
-                        <a href="img/project-2.jpg" target="_blank" rel="noopener noreferrer">画像</a>
-                        <a href="https://play.google.com/store/apps/details?id=com.target.citysniper.shooting3dgames" target="_blank" rel="noopener noreferrer">リンク</a>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <ul class="nav nav-pills rounded border border-2 border-primary mb-5">
+                        <li class="nav-item w-50">
+                            <button class="nav-link w-100 py-3 fs-5 active" data-bs-toggle="pill" href="#tab-1">職歴</button>
+                        </li>
+                        <li class="nav-item w-50">
+                            <button class="nav-link w-100 py-3 fs-5" data-bs-toggle="pill" href="#tab-2">学歴</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane fade show p-0 active">
+                            <div class="row gy-5 gx-4">
+                                <div class="col-sm-6">
+                                    <h5>ゲームプログラマー</h5>
+                                    <hr class="text-primary my-2">
+                                    <p class="text-primary mb-1">2021年11月 - 2024年1月</p>
+                                    <h6 class="mb-0">ABSTRON PVT LIMITED</h6>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h5>品出し（アルバイト）</h5>
+                                    <hr class="text-primary my-2">
+                                    <p class="text-primary mb-1">2024年5月 - 2026年3月</p>
+                                    <h6 class="mb-0">マルアイ ロジスティクスセンター</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab-2" class="tab-pane fade show p-0">
+                            <div class="row gy-5 gx-4">
+                                <div class="col-sm-6">
+                                    <h5>コンピュータ科学大学</h5>
+                                    <hr class="text-primary my-2">
+                                    <p class="text-primary mb-1">2017年10月 - 2021年10月</p>
+                                    <h6 class="mb-0">UNIVERSITY OF SOUTH ASIA</h6>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h5>高校</h5>
+                                    <hr class="text-primary my-2">
+                                    <p class="text-primary mb-1">2015年2月 - 2017年7月</p>
+                                    <h6 class="mb-0">PUNJAP GROUP OF COLLEGE</h6>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h5>日本語学校</h5>
+                                    <hr class="text-primary my-2">
+                                    <p class="text-primary mb-1">2024年4月 - 2026年3月</p>
+                                    <h6 class="mb-0">NEST21日本語学院</h6>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </article>
-                <article class="project">
-                    <img src="img/project-3.jpg" alt="プロジェクト3">
-                    <div class="project-actions">
-                        <a href="img/project-3.jpg" target="_blank" rel="noopener noreferrer">画像</a>
-                        <a href="https://www.meta.com/experiences/5569437649741106/?utm_source=altlabvr.com" target="_blank" rel="noopener noreferrer">リンク</a>
-                    </div>
-                </article>
-                <article class="project">
-                    <img src="img/project-4.jpg" alt="プロジェクト4">
-                    <div class="project-actions">
-                        <a href="img/project-4.jpg" target="_blank" rel="noopener noreferrer">画像</a>
-                        <a href="https://play.google.com/store/apps/details?id=com.frozen.water.slide.car.race" target="_blank" rel="noopener noreferrer">リンク</a>
-                    </div>
-                </article>
-                <article class="project">
-                    <img src="img/project-5.jpg" alt="プロジェクト5">
-                    <div class="project-actions">
-                        <a href="img/project-5.jpg" target="_blank" rel="noopener noreferrer">画像</a>
-                        <a href="https://www.meta.com/experiences/5480786012038792/?utm_source=altlabvr.com" target="_blank" rel="noopener noreferrer">リンク</a>
-                    </div>
-                </article>
-                <article class="project">
-                    <img src="img/project-6.jpg" alt="プロジェクト6">
-                    <div class="project-actions">
-                        <a href="img/project-6.jpg" target="_blank" rel="noopener noreferrer">画像</a>
-                        <a href="https://www.meta.com/experiences/7734850893256565/?utm_source=altlabvr.com" target="_blank" rel="noopener noreferrer">リンク</a>
-                    </div>
-                </article>
+                </div>
             </div>
-        </section>
+        </div>
+    </div>
 
-        <section class="section reveal" id="contact">
-            <h2 class="sec-title">連絡先</h2>
-            <div class="card">
-                <p><strong>氏名:</strong> ノマン ムハンマド</p>
-                <p><strong>電話:</strong> 7047222912</p>
-                <p><strong>メール:</strong> numanmushtaq11@gmail.com</p>
-                <p><strong>住所:</strong> 大阪市東淀川区相川3丁目1番18号ベストレジデンス相川田302号</p>
+    <div class="container-fluid bg-light my-5 py-6" id="service">
+        <div class="container">
+            <div class="row g-5 mb-5 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-6">
+                    <h1 class="display-5 mb-0">対応できる業務</h1>
+                </div>
+                <div class="col-lg-6 text-lg-end">
+                    <a class="btn btn-primary py-3 px-5" href="#contact">連絡する</a>
+                </div>
             </div>
-        </section>
-    </main>
+            <div class="row g-4">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item d-flex flex-column flex-sm-row bg-white rounded h-100 p-4 p-lg-5">
+                        <div class="bg-icon flex-shrink-0 mb-3">
+                            <i class="fa fa-gamepad fa-2x text-dark"></i>
+                        </div>
+                        <div class="ms-sm-4">
+                            <h4 class="mb-3">ゲーム開発業務</h4>
+                            <span>ゲームプログラマーとしての開発経験を活かして業務に対応します。</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item d-flex flex-column flex-sm-row bg-white rounded h-100 p-4 p-lg-5">
+                        <div class="bg-icon flex-shrink-0 mb-3">
+                            <i class="fa fa-boxes fa-2x text-dark"></i>
+                        </div>
+                        <div class="ms-sm-4">
+                            <h4 class="mb-3">物流・品出し業務</h4>
+                            <span>物流センターでの品出し経験をもとに、正確に作業を行います。</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item d-flex flex-column flex-sm-row bg-white rounded h-100 p-4 p-lg-5">
+                        <div class="bg-icon flex-shrink-0 mb-3">
+                            <i class="fa fa-language fa-2x text-dark"></i>
+                        </div>
+                        <div class="ms-sm-4">
+                            <h4 class="mb-3">多言語コミュニケーション</h4>
+                            <span>日本語・英語・ウルドゥー語で円滑にコミュニケーションができます。</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="service-item d-flex flex-column flex-sm-row bg-white rounded h-100 p-4 p-lg-5">
+                        <div class="bg-icon flex-shrink-0 mb-3">
+                            <i class="fa fa-user-check fa-2x text-dark"></i>
+                        </div>
+                        <div class="ms-sm-4">
+                            <h4 class="mb-3">時間・ルール順守</h4>
+                            <span>時間厳守とルール順守を重視し、責任を持って業務を遂行します。</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <footer class="footer">
-        <p>&copy; ノマン ムハンマド</p>
-    </footer>
+    <div class="container-xxl py-6 pt-5" id="project">
+        <div class="container">
+            <div class="row g-5 mb-5 align-items-center wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-6">
+                    <h1 class="display-5 mb-0">プロジェクト</h1>
+                </div>
+                <div class="col-lg-6 text-lg-end">
+                    <ul class="list-inline mx-n3 mb-0" id="portfolio-flters">
+                        <li class="mx-3 active" data-filter="*">すべて</li>
+                        <li class="mx-3" data-filter=".first">カテゴリ1</li>
+                        <li class="mx-3" data-filter=".second">カテゴリ2</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row g-4 portfolio-container wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-4 col-md-6 portfolio-item first">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/project-1.jpg" alt="">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/project-1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://www.meta.com/experiences/6015235845168476/?utm_source=altlabvr.com"><i class="fa fa-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 portfolio-item second">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/project-2.jpg" alt="">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/project-2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://play.google.com/store/apps/details?id=com.target.citysniper.shooting3dgames"><i class="fa fa-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 portfolio-item first">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/project-3.jpg" alt="">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/project-3.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://www.meta.com/experiences/5569437649741106/?utm_source=altlabvr.com"><i class="fa fa-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 portfolio-item second">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/project-4.jpg" alt="">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/project-4.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://play.google.com/store/apps/details?id=com.frozen.water.slide.car.race"><i class="fa fa-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 portfolio-item first">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/project-5.jpg" alt="">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/project-5.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://www.meta.com/experiences/5480786012038792/?utm_source=altlabvr.com"><i class="fa fa-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 portfolio-item first">
+                    <div class="portfolio-img rounded overflow-hidden">
+                        <img class="img-fluid" src="img/project-6.jpg" alt="">
+                        <div class="portfolio-btn">
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="img/project-6.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-lg-square btn-outline-secondary border-2 mx-1" href="https://www.meta.com/experiences/7734850893256565/?utm_source=altlabvr.com"><i class="fa fa-link"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        (function () {
-            var items = document.querySelectorAll(".reveal");
-            if (!("IntersectionObserver" in window)) {
-                items.forEach(function (el) { el.classList.add("show"); });
-                return;
-            }
-            var observer = new IntersectionObserver(function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("show");
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.12 });
-            items.forEach(function (el) { observer.observe(el); });
-        })();
+    <div class="container-fluid bg-light py-5 my-5" id="contact">
+        <div class="container py-5">
+            <div class="row g-5 mb-5 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-6">
+                    <h1 class="display-5 mb-0">連絡先</h1>
+                </div>
+                <div class="col-lg-6 text-lg-end">
+                    <a class="btn btn-primary py-3 px-5" href="mailto:numanmushtaq11@gmail.com">メールする</a>
+                </div>
+            </div>
+            <div class="row g-5">
+                <div class="col-lg-5 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <p class="mb-2">電話:</p>
+                    <h3 class="fw-bold">7047222912</h3>
+                    <hr class="w-100">
+                    <p class="mb-2">メール:</p>
+                    <h3 class="fw-bold"><a href="mailto:numanmushtaq11@gmail.com">numanmushtaq11@gmail.com</a></h3>
+                    <hr class="w-100">
+                    <p class="mb-2">住所:</p>
+                    <h3 class="fw-bold">大阪市東淀川区相川3丁目1番18号ベストレジデンス相川田302号</h3>
+                    <hr class="w-100">
+                </div>
+                <div class="col-lg-7 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <p class="mb-4">お問い合わせはメールにてお願いいたします。</p>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="メッセージ" style="height: 160px" readonly>現在、フォーム送信機能は使用していません。上記メールアドレスまでご連絡ください。</textarea>
+                        <label>ご案内</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    </script>
+    <div class="container-fluid bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center mb-3 mb-md-0">
+                    &copy; <a class="border-bottom text-secondary" href="#">ノマン ムハンマド</a>, All Right Reserved.
+                </div>
+                <div class="col-md-6 text-center text-md-end"></div>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/typed/typed.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+
+    <script src="js/main.js"></script>
 </body>
+
 </html>
