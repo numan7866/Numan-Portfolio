@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Muhammad Aqib Sher - Unity VR/AR Game Developer</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Unity VR AR Game Developer, Oculus Quest Developer, Mobile Game Development" name="keywords">
+    <meta content="Professional Unity VR/AR Game Developer specializing in Oculus Quest and mobile platforms" name="description">
+
+    <!-- Favicon -->
+    <link href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥽</text></svg>" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #6244C5;
+            --secondary: #FFC448;
+            --accent: #00F5FF;
+            --dark: #0A0A0F;
+            --light: #FAFAFB;
+            --gradient-1: linear-gradient(135deg, #6244C5, #00F5FF);
+            --gradient-2: linear-gradient(135deg, #FFC448, #FF6B6B);
+            --gradient-3: linear-gradient(45deg, #6244C5, #8B5CF6, #00F5FF);
+            --vr-glow: 0 0 20px rgba(98, 68, 197, 0.5);
+            --ar-glow: 0 0 20px rgba(0, 245, 255, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: var(--dark);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--dark);
+        }
+
+            .bg-animated::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(circle at 20% 80%, rgba(98, 68, 197, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(0, 245, 255, 0.1) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(255, 196, 72, 0.05) 0%, transparent 50%);
+                animation: backgroundFloat 20s ease-in-out infinite;
+            }
+
+        @keyframes backgroundFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+        }
+
+        /* Typography */
+        .font-orbitron {
+            font-family: 'Orbitron', monospace;
+        }
+
+        .text-gradient {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-glow {
+            text-shadow: 0 0 10px rgba(98, 68, 197, 0.8);
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+            .loader.hidden {
+                opacity: 0;
+                pointer-events: none;
+            }
+
+        .vr-headset {
+            width: 80px;
+            height: 80px;
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            position: relative;
+            animation: vrPulse 2s ease-in-out infinite;
+        }
+
+            .vr-headset::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 40px;
+                height: 40px;
+                background: var(--gradient-1);
+                border-radius: 50%;
+                animation: vrGlow 2s ease-in-out infinite;
+            }
+
+        @keyframes vrPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: var(--vr-glow);
+            }
+
+            50% {
+                transform: scale(1.1);
+                box-shadow: var(--ar-glow);
+            }
+        }
+
+        @keyframes vrGlow {
+            0%, 100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Navigation */
+        .navbar-custom {
+            background: rgba(10, 10, 15, 0.95) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(98, 68, 197, 0.2);
+            transition: all 0.3s ease;
+        }
+
+            .navbar-custom.scrolled {
+                box-shadow: 0 5px 30px rgba(98, 68, 197, 0.3);
+            }
+
+        .navbar-brand {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-link {
+            color: white !important;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 50%;
+                width: 0;
+                height: 2px;
+                background: var(--gradient-1);
+                transition: all 0.3s ease;
+                transform: translateX(-50%);
+            }
+
+            .nav-link:hover::after,
+            .nav-link.active::after {
+                width: 100%;
+            }
+
+            .nav-link:hover {
+                color: var(--accent) !important;
+                text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+            }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            margin-bottom: 2rem;
+            animation: slideInLeft 1s ease-out 0.2s both;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            animation: slideInLeft 1s ease-out 0.4s both;
+        }
+
+        .hero-buttons {
+            animation: slideInLeft 1s ease-out 0.6s both;
+        }
+
+        .hero-image {
+            position: relative;
+            animation: slideInRight 1s ease-out 0.3s both;
+        }
+
+            .hero-image img {
+                width: 100%;
+                max-width: 500px;
+                height: auto;
+                border-radius: 20px;
+                box-shadow: 0 20px 40px rgba(98, 68, 197, 0.3);
+                transition: transform 0.3s ease;
+            }
+
+            .hero-image:hover img {
+                transform: translateY(-10px);
+            }
+
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .floating-icon {
+            position: absolute;
+            font-size: 2rem;
+            color: var(--primary);
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+            .floating-icon:nth-child(1) {
+                top: 10%;
+                left: 10%;
+                animation-delay: 0s;
+            }
+
+            .floating-icon:nth-child(2) {
+                top: 20%;
+                right: 15%;
+                animation-delay: 2s;
+            }
+
+            .floating-icon:nth-child(3) {
+                bottom: 30%;
+                left: 20%;
+                animation-delay: 4s;
+            }
+
+            .floating-icon:nth-child(4) {
+                bottom: 10%;
+                right: 10%;
+                animation-delay: 1s;
+            }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Buttons */
+        .btn-primary-custom {
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .btn-primary-custom::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                transition: left 0.5s;
+            }
+
+            .btn-primary-custom:hover::before {
+                left: 100%;
+            }
+
+            .btn-primary-custom:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 25px rgba(98, 68, 197, 0.4);
+            }
+
+        .btn-outline-custom {
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            background: transparent;
+            border-radius: 50px;
+            padding: 10px 28px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+            .btn-outline-custom:hover {
+                background: var(--accent);
+                color: var(--dark);
+                transform: translateY(-3px);
+                box-shadow: 0 10px 25px rgba(0, 245, 255, 0.4);
+            }
+
+        /* Sections */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+            .section-title::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80px;
+                height: 4px;
+                background: var(--gradient-1);
+                border-radius: 2px;
+            }
+
+        /* Skills Section */
+        .skill-card {
+            background: rgba(98, 68, 197, 0.1);
+            border: 1px solid rgba(98, 68, 197, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+            .skill-card:hover {
+                transform: translateY(-10px);
+                box-shadow: var(--vr-glow);
+                border-color: var(--primary);
+            }
+
+        .skill-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .progress-custom {
+            height: 10px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .progress-bar-custom {
+            height: 100%;
+            background: var(--gradient-1);
+            border-radius: 10px;
+            transition: width 2s ease-in-out;
+            position: relative;
+        }
+
+            .progress-bar-custom::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+                animation: progressShine 2s ease-in-out infinite;
+            }
+
+        @keyframes progressShine {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: rgba(98, 68, 197, 0.05);
+            border: 1px solid rgba(98, 68, 197, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+            .project-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 20px 40px rgba(98, 68, 197, 0.3);
+            }
+
+        .project-image {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+
+            .project-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.3s ease;
+            }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(98, 68, 197, 0.9);
+            opacity: 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid white;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+            .project-btn:hover {
+                background: white;
+                color: var(--primary);
+                transform: scale(1.1);
+            }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .project-category {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .project-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Video Modal */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            backdrop-filter: blur(10px);
+        }
+
+            .video-modal.active {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                animation: fadeIn 0.3s ease;
+            }
+
+        .video-content {
+            background: rgba(98, 68, 197, 0.1);
+            border: 1px solid rgba(98, 68, 197, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 90%;
+            max-height: 90%;
+            width: 800px;
+            position: relative;
+            backdrop-filter: blur(20px);
+        }
+
+        .video-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+            .video-close:hover {
+                background: var(--primary);
+                transform: rotate(90deg);
+            }
+
+        .video-player {
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+        }
+
+        .video-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .video-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact-card {
+            background: rgba(98, 68, 197, 0.1);
+            border: 1px solid rgba(98, 68, 197, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+            .contact-card:hover {
+                transform: translateY(-5px);
+                box-shadow: var(--vr-glow);
+            }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .form-control-custom {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+
+            .form-control-custom:focus {
+                background: rgba(255, 255, 255, 0.15);
+                border-color: var(--primary);
+                box-shadow: 0 0 15px rgba(98, 68, 197, 0.3);
+                color: white;
+            }
+
+            .form-control-custom::placeholder {
+                color: rgba(255, 255, 255, 0.6);
+            }
+
+        /* Footer */
+        .footer {
+            background: rgba(10, 10, 15, 0.95);
+            border-top: 1px solid rgba(98, 68, 197, 0.2);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(98, 68, 197, 0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+            .social-link:hover {
+                background: var(--primary);
+                color: white;
+                transform: translateY(-3px);
+                box-shadow: var(--vr-glow);
+            }
+
+        /* Animations */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-section {
+                text-align: center;
+                padding: 2rem 0;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .video-content {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .video-player {
+                height: 250px;
+            }
+
+            .navbar-nav {
+                text-align: center;
+                padding: 1rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .project-image {
+                height: 200px;
+            }
+        }
+
+        /* Scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+            .animate-on-scroll.animated {
+                opacity: 1;
+                transform: translateY(0);
+            }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animated"></div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="vr-headset"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-custom" id="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <i class="fas fa-vr-cardboard me-2"></i>VR Developer
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="floating-icons">
+            <i class="floating-icon fas fa-vr-cardboard"></i>
+            <i class="floating-icon fas fa-gamepad"></i>
+            <i class="floating-icon fas fa-mobile-alt"></i>
+            <i class="floating-icon fas fa-cube"></i>
+        </div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="hero-content">
+                        <h1 class="hero-title font-orbitron text-gradient">
+                            Muhammad Aqib Sher
+                        </h1>
+                        <h2 class="hero-subtitle text-glow">
+                            Unity VR/AR Game Developer
+                        </h2>
+                        <p class="hero-description">
+                            Crafting immersive virtual and augmented reality experiences for Oculus Quest and mobile platforms.
+                            Specialized in Unity 3D development with 3+ years of professional experience in creating
+                            cutting-edge VR games and interactive simulations.
+                        </p>
+                        <div class="hero-buttons d-flex gap-3 flex-wrap">
+                            <a href="#projects" class="btn btn-primary-custom">
+                                <i class="fas fa-play me-2"></i>View Projects
+                            </a>
+                            <a href="#contact" class="btn btn-outline-custom">
+                                <i class="fas fa-envelope me-2"></i>Hire Me
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-image text-center">
+                        <img src="https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                             alt="VR Developer" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title font-orbitron text-gradient animate-on-scroll">About Me</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-6 animate-on-scroll">
+                    <div class="skill-card">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="skill-icon me-3">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-white mb-0">3+ Years</h3>
+                                <p class="text-muted mb-0">Professional Experience</p>
+                            </div>
+                        </div>
+                        <p class="text-light">
+                            I have comprehensive knowledge and understanding of simulation and game development for Unity platforms.
+                            I have developed many applications for Oculus Quest and mobile. I have extensive knowledge of Unity XR tools
+                            and C# scripting to make your dream app or game a reality.
+                        </p>
+                        <div class="row mt-4">
+                            <div class="col-6">
+                                <div class="text-center">
+                                    <h4 class="text-gradient font-orbitron">15+</h4>
+                                    <p class="text-muted">VR Projects</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-center">
+                                    <h4 class="text-gradient font-orbitron">8+</h4>
+                                    <p class="text-muted">Mobile Games</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 animate-on-scroll">
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <h5 class="text-white">Efficiency in problem-solving</h5>
+                                <p class="text-muted">Rapid prototyping and debugging complex VR interactions</p>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <h5 class="text-white">Passion for immersive experiences</h5>
+                                <p class="text-muted">Creating worlds that transport users to new realities</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="skill-card">
+                                <div class="skill-icon">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <h5 class="text-white">Strong programming skills</h5>
+                                <p class="text-muted">Expert in C#, Unity3D, and XR development frameworks</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title font-orbitron text-gradient animate-on-scroll">Skills & Expertise</h2>
+            <div class="row">
+                <div class="col-lg-6 animate-on-scroll">
+                    <div class="skill-card h-100">
+                        <h4 class="text-white mb-4">Technical Skills</h4>
+
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-white">Unity 3D</span>
+                                <span class="text-gradient">95%</span>
+                            </div>
+                            <div class="progress-custom">
+                                <div class="progress-bar-custom" data-width="95"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-white">VR Development</span>
+                                <span class="text-gradient">90%</span>
+                            </div>
+                            <div class="progress-custom">
+                                <div class="progress-bar-custom" data-width="90"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-white">C# Programming</span>
+                                <span class="text-gradient">92%</span>
+                            </div>
+                            <div class="progress-custom">
+                                <div class="progress-bar-custom" data-width="92"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-white">Mobile Development</span>
+                                <span class="text-gradient">88%</span>
+                            </div>
+                            <div class="progress-custom">
+                                <div class="progress-bar-custom" data-width="88"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-white">Project Management</span>
+                                <span class="text-gradient">85%</span>
+                            </div>
+                            <div class="progress-custom">
+                                <div class="progress-bar-custom" data-width="85"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 animate-on-scroll">
+                    <div class="skill-card h-100">
+                        <h4 class="text-white mb-4">Experience Timeline</h4>
+
+                        <div class="timeline">
+                            <div class="timeline-item mb-4">
+                                <h6 class="text-gradient">Mar 2024 - Present</h6>
+                                <h5 class="text-white">Team Lead Unity VR/AR Development</h5>
+                                <p class="text-muted">Suave Solutions Lahore</p>
+                            </div>
+
+                            <div class="timeline-item mb-4">
+                                <h6 class="text-gradient">Aug 2023 - Feb 2024</h6>
+                                <h5 class="text-white">Senior Unity VR/AR Developer</h5>
+                                <p class="text-muted">Symtera Technologies Pvt. Ltd.</p>
+                            </div>
+
+                            <div class="timeline-item mb-4">
+                                <h6 class="text-gradient">Sep 2021 - Aug 2023</h6>
+                                <h5 class="text-white">Junior Game Developer</h5>
+                                <p class="text-muted">Abstron Pvt. Ltd.</p>
+                            </div>
+
+                            <div class="timeline-item">
+                                <h6 class="text-gradient">2017 - 2021</h6>
+                                <h5 class="text-white">BS Computer Science</h5>
+                                <p class="text-muted">COMSATS University Islamabad</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title font-orbitron text-gradient animate-on-scroll">Featured Projects</h2>
+            <div class="projects-grid">
+
+                <!-- Project 1: VR Lab Simulation -->
+                <div class="project-card animate-on-scroll" data-category="vr">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1592478411213-6153e4ebc696?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="VR Lab Simulation">
+                        <div class="project-overlay">
+                            <button class="project-btn" onclick="openVideoModal('Chemistry Lab VR', 'https://drive.google.com/file/d/1abc123/preview', 'An immersive virtual reality chemistry laboratory where students can conduct experiments safely. Features realistic physics simulation, interactive equipment, and guided tutorials for learning complex chemical reactions.')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <a href="https://www.meta.com/experiences/6015235845168476/" target="_blank" class="project-btn">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-category">VR Education</div>
+                        <h4 class="project-title">Chemistry Lab VR</h4>
+                        <p class="project-description">
+                            Interactive virtual reality chemistry laboratory for educational purposes with realistic simulations.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Project 2: Mobile Shooter Game -->
+                <div class="project-card animate-on-scroll" data-category="mobile">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="City Sniper Game">
+                        <div class="project-overlay">
+                            <button class="project-btn" onclick="openVideoModal('City Sniper 3D', 'https://drive.google.com/file/d/1def456/preview', 'A thrilling mobile shooting game featuring realistic graphics, multiple challenging levels, and smooth gameplay mechanics. Players take on the role of an elite sniper in urban environments.')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <a href="https://play.google.com/store/apps/details?id=com.target.citysniper.shooting3dgames" target="_blank" class="project-btn">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-category">Mobile Gaming</div>
+                        <h4 class="project-title">City Sniper 3D</h4>
+                        <p class="project-description">
+                            High-action mobile shooter game with realistic graphics and challenging sniper missions.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Project 3: VR Training Simulation -->
+                <div class="project-card animate-on-scroll" data-category="vr">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1617802690992-15d93263d3a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Fire Safety Training VR">
+                        <div class="project-overlay">
+                            <button class="project-btn" onclick="openVideoModal('Fire Safety Training VR', 'https://drive.google.com/file/d/1ghi789/preview', 'Professional fire safety training simulation for emergency responders. Features realistic fire behavior, smoke simulation, and interactive rescue scenarios in various building types.')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <a href="https://www.meta.com/experiences/5569437649741106/" target="_blank" class="project-btn">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-category">VR Training</div>
+                        <h4 class="project-title">Fire Safety Training VR</h4>
+                        <p class="project-description">
+                            Professional training simulation for fire safety protocols and emergency response procedures.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Project 4: Mobile Racing Game -->
+                <div class="project-card animate-on-scroll" data-category="mobile">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Water Slide Car Race">
+                        <div class="project-overlay">
+                            <button class="project-btn" onclick="openVideoModal('Water Slide Car Race', 'https://drive.google.com/file/d/1jkl012/preview', 'Exciting mobile racing game featuring cars racing on water slides. Includes multiple tracks, vehicle customization, power-ups, and multiplayer racing modes with stunning water physics.')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <a href="https://play.google.com/store/apps/details?id=com.frozen.water.slide.car.race" target="_blank" class="project-btn">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-category">Mobile Gaming</div>
+                        <h4 class="project-title">Water Slide Car Race</h4>
+                        <p class="project-description">
+                            Unique racing game featuring cars on water slides with dynamic physics and exciting gameplay.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Project 5: VR Medical Training -->
+                <div class="project-card animate-on-scroll" data-category="vr">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Medical Training VR">
+                        <div class="project-overlay">
+                            <button class="project-btn" onclick="openVideoModal('Medical Training VR', 'https://drive.google.com/file/d/1mno345/preview', 'Advanced medical training simulation for surgical procedures. Includes anatomically correct models, realistic haptic feedback, and step-by-step surgical training modules for medical students.')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <a href="https://www.meta.com/experiences/5480786012038792/" target="_blank" class="project-btn">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-category">VR Medical</div>
+                        <h4 class="project-title">Medical Training VR</h4>
+                        <p class="project-description">
+                            Advanced surgical training simulation for medical professionals with realistic haptic feedback.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Project 6: VR Aerospace Training -->
+                <div class="project-card animate-on-scroll" data-category="vr">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Aerospace Training VR">
+                        <div class="project-overlay">
+                            <button class="project-btn" onclick="openVideoModal('Aerospace Training VR', 'https://drive.google.com/file/d/1pqr678/preview', 'Comprehensive aerospace training simulation for pilots and ground crew. Features realistic cockpit controls, weather simulation, emergency procedures, and various aircraft types for training purposes.')">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <a href="https://www.meta.com/experiences/7734850893256565/" target="_blank" class="project-btn">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-category">VR Aerospace</div>
+                        <h4 class="project-title">Aerospace Training VR</h4>
+                        <p class="project-description">
+                            Professional pilot training simulation with realistic flight controls and weather systems.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title font-orbitron text-gradient animate-on-scroll">Let's Work Together</h2>
+            <div class="row">
+                <div class="col-lg-4 animate-on-scroll">
+                    <div class="contact-card text-center">
+                        <div class="contact-icon mx-auto">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h5 class="text-white">Call Me</h5>
+                        <a href="tel:+923056708589" class="text-gradient">+(92) 305 6708589</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 animate-on-scroll">
+                    <div class="contact-card text-center">
+                        <div class="contact-icon mx-auto">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h5 class="text-white">Email Me</h5>
+                        <a href="mailto:aqibsher924@gmail.com" class="text-gradient">aqibsher924@gmail.com</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 animate-on-scroll">
+                    <div class="contact-card text-center">
+                        <div class="contact-icon mx-auto">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h5 class="text-white">Location</h5>
+                        <p class="text-gradient">Lahore, Punjab, Pakistan</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-8 mx-auto animate-on-scroll">
+                    <div class="contact-card">
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <input type="text" class="form-control form-control-custom" placeholder="Your Name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <input type="email" class="form-control form-control-custom" placeholder="Your Email" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <input type="text" class="form-control form-control-custom" placeholder="Subject" required>
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control form-control-custom" rows="5" placeholder="Your Message" required></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary-custom">
+                                    <i class="fas fa-paper-plane me-2"></i>Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-links">
+                <a href="https://pk.linkedin.com/in/muhammad-aqib-sher-00793015b" target="_blank" class="social-link">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://www.facebook.com/bhatti.zada.372/" target="_blank" class="social-link">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+            <p class="text-muted">&copy; 2024 Muhammad Aqib Sher. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-content">
+            <button class="video-close" onclick="closeVideoModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <iframe class="video-player" id="videoPlayer" src="" frameborder="0" allowfullscreen></iframe>
+            <h3 class="video-title" id="videoTitle"></h3>
+            <p class="video-description" id="videoDescription"></p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Loader
+        window.addEventListener('load', function () {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 2000);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Active navigation link
+        window.addEventListener('scroll', function () {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+
+                    // Animate progress bars when skills section is visible
+                    if (entry.target.closest('#skills')) {
+                        setTimeout(() => {
+                            const progressBars = entry.target.querySelectorAll('.progress-bar-custom');
+                            progressBars.forEach(bar => {
+                                const width = bar.getAttribute('data-width');
+                                bar.style.width = width + '%';
+                            });
+                        }, 500);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Video modal functions
+        function openVideoModal(title, videoUrl, description) {
+            document.getElementById('videoTitle').textContent = title;
+            document.getElementById('videoDescription').textContent = description;
+            document.getElementById('videoPlayer').src = videoUrl;
+            document.getElementById('videoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVideoModal() {
+            document.getElementById('videoModal').classList.remove('active');
+            document.getElementById('videoPlayer').src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('videoModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeVideoModal();
+            }
+        });
+
+        // Close modal with escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeVideoModal();
+            }
+        });
+
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Simple form validation and submission simulation
+            const formData = new FormData(this);
+
+            // Show success message
+            alert('Thank you for your message! I will get back to you soon.');
+
+            // Reset form
+            this.reset();
+        });
+
+        // Typing animation for hero text
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+
+            type();
+        }
+
+        // Start typing animation when page loads
+        window.addEventListener('load', function () {
+            setTimeout(() => {
+                const subtitle = document.querySelector('.hero-subtitle');
+                const originalText = subtitle.textContent;
+                typeWriter(subtitle, originalText, 100);
+            }, 3000);
+        });
+
+        // Particle effect for background (optional enhancement)
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.width = '2px';
+            particle.style.height = '2px';
+            particle.style.background = 'rgba(98, 68, 197, 0.5)';
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '1';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = '100%';
+            particle.style.animation = 'particleFloat 10s linear infinite';
+
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 10000);
+        }
+
+        // Add particle animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+                @keyframes particleFloat {
+                    to {
+                        transform: translateY(-100vh) rotate(360deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+        document.head.appendChild(style);
+
+        // Create particles periodically
+        setInterval(createParticle, 2000);
+
+        // Mobile menu close on link click
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                if (navbarCollapse.classList.contains('show')) {
+                    const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+                    bsCollapse.hide();
+                }
+            });
+        });
+
+        // Add hover effects for project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Initialize tooltips (if needed)
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        // Console welcome message
+        console.log('%c🥽 Welcome to Muhammad Aqib Sher\'s Portfolio! 🎮', 'color: #6244C5; font-size: 20px; font-weight: bold;');
+        console.log('%cUnity VR/AR Game Developer Portfolio', 'color: #00F5FF; font-size: 14px;');
+        console.log('%cBuilt with passion for immersive experiences!', 'color: #FFC448; font-size: 12px;');
+    </script>
+</body>
+</html>
